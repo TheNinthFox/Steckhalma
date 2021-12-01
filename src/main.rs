@@ -56,6 +56,7 @@ fn main() {
                 .label("update_visuals")
                 .after("process_mouse_input"),
         )
+        .add_system(bevy::input::system::exit_on_esc_system.system())
         .add_plugins(DefaultPlugins)
         .run()
 }

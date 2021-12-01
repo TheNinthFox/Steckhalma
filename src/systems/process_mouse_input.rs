@@ -1,5 +1,9 @@
 use crate::prelude::*;
 
+use crate::grid::game_move::*;
+use crate::grid::position::*;
+use crate::grid::tile::*;
+
 pub fn process_mouse_input(
     mut commands: Commands,
     mut mouse_data_reader: EventReader<MouseDataEvent>,

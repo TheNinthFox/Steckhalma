@@ -1,6 +1,11 @@
 use crate::prelude::*;
+use crate::grid::position::*;
 
 pub struct BoardTile;
+pub struct Hovered;
+pub struct Selected;
+pub struct InbetweenComponent;
+pub struct ValidMoveComponent;
 
 pub struct Token {
     pub x: f32,
@@ -8,11 +13,6 @@ pub struct Token {
     pub width: f32,
     pub height: f32,
 }
-
-pub struct Hovered;
-pub struct Selected;
-pub struct InbetweenComponent;
-pub struct ValidMoveComponent;
 
 impl Token {
     pub fn from_position(position: &Position) -> Self {

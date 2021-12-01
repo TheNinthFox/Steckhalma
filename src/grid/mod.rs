@@ -1,48 +1,22 @@
+pub mod game_move;
+pub mod position;
+pub mod tile;
+
+#[cfg(test)]
+#[path = "./grid_test.rs"]
+mod grid_test;
+
 use crate::prelude::*;
+
+use game_move::*;
+use position::*;
+use tile::*;
 
 pub const GRID_SIZE: usize = 7;
 pub const TILE_SIZE: f32 = WINDOW_SIZE as f32 / GRID_SIZE as f32;
 pub const PADDING: f32 = 10.0;
 pub const TILE_SIZE_PADDED: f32 = TILE_SIZE - PADDING;
 pub const CENTER: usize = 24;
-
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
-pub struct Tile {
-    pub position: Position,
-    pub is_corner: bool,
-    pub has_token: bool,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct Position {
-    pub row: usize,
-    pub col: usize,
-}
-
-impl Position {
-    pub fn to_index(&self) -> usize {
-        self.row * GRID_SIZE + self.col
-    }
-}
-
-pub enum MoveDirection {
-    Left,
-    Right,
-    Up,
-    Down,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct ValidMove {
-    pub origin: Position,
-    pub middle: Position,
-    pub target: Position,
-}
-
-#[derive(Clone, Debug, PartialEq, Eq)]
-pub struct ValidMoves {
-    pub list: Vec<ValidMove>,
-}
 
 pub struct Grid {
     pub tiles: Vec<Tile>,
@@ -172,6 +146,9 @@ impl Grid {
         Vec3::new(x, y, 0.0)
     }
 
+    /**
+     * Takes x & y coordinates that must be already normalized for (0,0) being the top-left corner.
+     */
     pub fn from_pixel(x: f32, y: f32) -> Position {
         Position {
             row: (y / TILE_SIZE).floor() as usize,
